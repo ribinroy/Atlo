@@ -17,8 +17,8 @@ jobs:
                   node-version: '12.18'
             - name: ci step
               run: npm ci
-            # - name: Build
-            #   run: npm run build
+            - name: Build
+              run: npm run build
             - name: Deploy to Firebase
               uses: w9jds/firebase-action@master
               with:
