@@ -25,4 +25,4 @@ jobs:
                   args: deploy --only hosting
               env:
                   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-                  CI: false npm run build --if-present
+                  CI: false npm run build
