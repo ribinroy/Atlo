@@ -17,8 +17,7 @@ jobs:
                   node-version: '12.18'
             - name: Install Dependencies
               run: npm install
-            - name: CI step
-              run: npm ci
+            - run: CI=false npm run build --if-present
             - name: Build
               run: npm run build
             - name: Deploy to Firebase
@@ -27,4 +26,3 @@ jobs:
                   args: deploy --only hosting
               env:
                   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-                  CI: npm run build
