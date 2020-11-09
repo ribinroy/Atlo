@@ -22,6 +22,7 @@ console.log(atloDB);
 var starCountRef = firebase.database().ref('users/');
 starCountRef.on('value', function (snapshot) {
     debugger;
+    snapshot.val();
     //   updateStarCount(postElement, snapshot.val());
 });
 
