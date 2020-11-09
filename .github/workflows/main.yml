@@ -14,7 +14,7 @@ jobs:
             - name: setup node
               uses: actions/setup-node@v1
               with:
-                    node-version: '12.18'
+                  node-version: '12.18'
             - name: Install Dependencies
               run: npm ci
             - name: Build
@@ -32,4 +32,4 @@ jobs:
                   args: deploy --only hosting
               env:
                   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-                  CI: ''
+                  CI: false npm run build --if-present
