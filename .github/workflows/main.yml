@@ -19,13 +19,6 @@ jobs:
               run: npm ci
             - name: Build
               run: npm run build
-    deploy:
-        name: Deploy
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repo
-              uses: actions/checkout@v2
             - name: Deploy to Firebase
               uses: w9jds/firebase-action@master
               with:
