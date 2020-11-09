@@ -15,7 +15,9 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: '12.18'
-            - name: ci step
+            - name: Install Dependencies
+              run: npm install
+            - name: CI step
               run: npm ci
             - name: Build
               run: npm run build
