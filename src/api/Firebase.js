@@ -16,15 +16,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
-const atloDB = firebase.database();
-console.log(atloDB);
+// const atloDB = firebase.database();
+// console.log(atloDB);
 
-var starCountRef = firebase.database().ref('users/');
-starCountRef.on('value', function (snapshot) {
-    debugger;
-    snapshot.val();
-    //   updateStarCount(postElement, snapshot.val());
-});
-
-debugger;
 export default firebase;
