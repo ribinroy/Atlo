@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from './../api/Firebase';
+import moment from 'moment';
 const AtloContext = React.createContext();
 
 export default AtloContext;
@@ -53,7 +54,6 @@ export function Provider(props) {
         for (const item in attendanceArray) {
             let allAttendanceinThisDate = attendanceArray[item];
             for (const attendenceItem in allAttendanceinThisDate) {
-                debugger;
                 var singleItem = allAttendanceinThisDate[attendenceItem];
                 singleItem.userToken = attendenceItem;
                 singleItem.date = item;
@@ -69,6 +69,7 @@ export function Provider(props) {
                     singleItem.userType = userAssociated[0].userType;
                 }
 
+                singleItem.effective = calculateEffective(singleItem);
                 tempArray.push(singleItem);
             }
         }
@@ -99,4 +100,24 @@ export function Provider(props) {
             {props.children}
         </AtloContext.Provider>
     );
+}
+
+function calculateEffective(item) {
+    if (item.clockedIn === undefined) return 'N/A';
+
+    let effective = getDifferenceOfThese(item.clockedIn, item.clockedOut);
+    effective = effective - getDifferenceOfThese(item.lunchIn, item.lunchOut);
+    effective = effective - getDifferenceOfThese(item.teaIn, item.teaOut);
+
+    debugger;
+    const hours = Math.floor(effective / 60);
+    const minutes = effective % 60;
+    return `${hours}hr ${minutes}min`;
+}
+
+function getDifferenceOfThese(date1, date2) {
+    if (date1 === undefined) return 0;
+    const start = moment(date1);
+    const end = date2 === undefined ? moment() : moment(date2);
+    return end.diff(start, 'minute');
 }

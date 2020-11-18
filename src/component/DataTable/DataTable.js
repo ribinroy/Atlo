@@ -8,22 +8,28 @@ import moment from 'moment';
 
 export default function DT() {
     const contextData = useContext(AtloContext);
-    const dateOnlyFormatter = (d) => (
-        <span title={moment(d.clockedIn).format('DD/MMMM/YYYY')}>
-            <span className='sort-hider'>
-                {moment(d.clockedIn).format('YYYY/MM/DD hh:mm A')}
+    const dateOnlyFormatter = (d, key) =>
+        d[key] === undefined ? (
+            'N/A'
+        ) : (
+            <span title={moment(d[key]).format('DD/MMMM/YYYY')}>
+                <span className='sort-hider'>
+                    {moment(d[key]).format('YYYY/MM/DD hh:mm:ss A')}
+                </span>
+                {moment(d[key]).format('DD/MMM/YYYY')}
             </span>
-            {moment(d.clockedIn).format('DD/MMM/YYYY')}
-        </span>
-    );
-    const timeFormatter = (d) => (
-        <span title={moment(d.clockedIn).format('DD/MMMM/YYYY hh:mm A')}>
-            <span className='sort-hider'>
-                {moment(d.clockedIn).format('YYYY/MM/DD hh:mm A')}
+        );
+    const timeFormatter = (d, key) =>
+        d[key] === undefined ? (
+            'N/A'
+        ) : (
+            <span title={moment(d[key]).format('DD/MMMM/YYYY hh:mm A')}>
+                <span className='sort-hider'>
+                    {moment(d[key]).format('YYYY/MM/DD hh:mm:ss A')}
+                </span>
+                {moment(d[key]).format('hh:mm:ss A')}
             </span>
-            {moment(d.clockedIn).format('hh:mm A')}
-        </span>
-    );
+        );
     const columns = [
         {
             name: 'Date',
@@ -55,37 +61,42 @@ export default function DT() {
             name: 'In',
             selector: 'clockedIn',
             sortable: true,
-            cell: timeFormatter,
+            cell: (d) => timeFormatter(d, 'clockedIn'),
         },
         {
             name: 'Lunch In',
             selector: 'lunchIn',
             sortable: true,
-            cell: timeFormatter,
+            cell: (d) => timeFormatter(d, 'lunchIn'),
         },
         {
             name: 'Lunch out',
             selector: 'lunchOut',
             sortable: true,
-            cell: timeFormatter,
+            cell: (d) => timeFormatter(d, 'lunchOut'),
         },
         {
             name: 'Tea In',
             selector: 'teaIn',
             sortable: true,
-            cell: timeFormatter,
+            cell: (d) => timeFormatter(d, 'teaIn'),
         },
         {
             name: 'Tea Out',
             selector: 'teaOut',
             sortable: true,
-            cell: timeFormatter,
+            cell: (d) => timeFormatter(d, 'teaOut'),
         },
         {
             name: 'Out',
             selector: 'clockedOut',
             sortable: true,
-            cell: timeFormatter,
+            cell: (d) => timeFormatter(d, 'clockedOut'),
+        },
+        {
+            name: 'Effective',
+            selector: 'effective',
+            sortable: true,
         },
     ];
 
