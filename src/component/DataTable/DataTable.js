@@ -35,7 +35,7 @@ export default function DT() {
             name: 'Date',
             selector: 'date',
             sortable: true,
-            cell: dateOnlyFormatter,
+            cell: (d) => dateOnlyFormatter(d, 'date'),
         },
         {
             name: 'Name',
