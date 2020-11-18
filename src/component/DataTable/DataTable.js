@@ -27,7 +27,7 @@ export default function DT() {
     const columns = [
         {
             name: 'Date',
-            selector: 'clockedIn',
+            selector: 'date',
             sortable: true,
             cell: dateOnlyFormatter,
         },
@@ -103,7 +103,7 @@ export default function DT() {
                     data={contextData.attendanceCalc}
                     noHeader
                     theme={'dark'}
-                    defaultSortField='clockedIn'
+                    defaultSortField='date'
                     defaultSortAsc={false}
                     pagination
                     highlightOnHover

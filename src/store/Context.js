@@ -53,9 +53,12 @@ export function Provider(props) {
         for (const item in attendanceArray) {
             let allAttendanceinThisDate = attendanceArray[item];
             for (const attendenceItem in allAttendanceinThisDate) {
+                debugger;
                 var singleItem = allAttendanceinThisDate[attendenceItem];
                 singleItem.userToken = attendenceItem;
+                singleItem.date = item;
                 const userAssociated = userArrayCalc.filter(
+                    // eslint-disable-next-line no-loop-func
                     (el) => el.token === singleItem.userToken
                 );
 
