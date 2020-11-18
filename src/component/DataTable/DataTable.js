@@ -2,12 +2,17 @@ import './DataTable.scss';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AtloContext from './../../store/Context';
 import moment from 'moment';
+import GoogleMapReact from 'google-map-react';
+import PopUp from './../PopUp/PopUp';
 
 export default function DT() {
     const contextData = useContext(AtloContext);
+    const [locationData, setLocationData] = useState({});
+    const [showPopUp, setPopUp] = useState(false);
+
     const dateOnlyFormatter = (d, key) =>
         d[key] === undefined ? (
             'N/A'
@@ -19,6 +24,7 @@ export default function DT() {
                 {moment(d[key]).format('DD/MMM/YYYY')}
             </span>
         );
+
     const timeFormatter = (d, key) =>
         d[key] === undefined ? (
             'N/A'
@@ -30,6 +36,7 @@ export default function DT() {
                 {moment(d[key]).format('hh:mm:ss A')}
             </span>
         );
+
     const columns = [
         {
             name: 'Date',
@@ -100,7 +107,22 @@ export default function DT() {
         },
     ];
 
-    // if()
+    const handleRowClicked = (row) => {
+        setLocationData({
+            lat: parseFloat(row.locationLat),
+            long: parseFloat(row.locationLong),
+            center: {
+                lat: parseFloat(row.locationLat),
+                lng: parseFloat(row.locationLong),
+            },
+            user: row.username,
+        });
+        setPopUp(true);
+    };
+
+    const AnyReactComponent = ({ text }) => (
+        <div className='user-pointed'>{text}</div>
+    );
     const tableData = {
         columns,
         data: contextData.attendanceCalc,
@@ -118,17 +140,27 @@ export default function DT() {
                     defaultSortAsc={false}
                     pagination
                     highlightOnHover
+                    onRowClicked={handleRowClicked}
                 />
             </DataTableExtensions>
-            {/* {contextData &&
-                contextData.attendanceArray &&
-                Object.keys(contextData.attendanceArray).map(function (key) {
-                    return (
-                        <option value={key}>
-                            {contextData.attendanceArray[key].username}
-                        </option>
-                    );
-                })} */}
+            <PopUp onClose={() => setPopUp(false)} visible={showPopUp}>
+                {locationData.center !== undefined && (
+                    <div className='map-wrap'>
+                        <GoogleMapReact
+                            bootstrapURLKeys={{
+                                key: 'AIzaSyB-SMSufNXZ4YDBTRMF_-vgsktcuAhXDCA',
+                            }}
+                            defaultCenter={locationData.center}
+                            defaultZoom={20}>
+                            <AnyReactComponent
+                                lat={locationData.lat}
+                                lng={locationData.long}
+                                text={locationData.user}
+                            />
+                        </GoogleMapReact>
+                    </div>
+                )}
+            </PopUp>
         </div>
     );
 }
