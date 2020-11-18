@@ -26,6 +26,12 @@ export default function DT() {
     );
     const columns = [
         {
+            name: 'Date',
+            selector: 'clockedIn',
+            sortable: true,
+            cell: dateOnlyFormatter,
+        },
+        {
             name: 'Name',
             selector: 'username',
             sortable: true,
@@ -44,12 +50,6 @@ export default function DT() {
             name: 'Location',
             selector: 'LocationName',
             sortable: false,
-        },
-        {
-            name: 'Date',
-            selector: 'clockedIn',
-            sortable: true,
-            cell: dateOnlyFormatter,
         },
         {
             name: 'In',

@@ -12,9 +12,21 @@ function App() {
                     <Route path='/table'>
                         <DT />
                     </Route>
+
+                    <Route path='/'>
+                        <Home />
+                    </Route>
                 </Switch>
             </Router>
         </Provider>
+    );
+}
+
+function Home() {
+    return (
+        <div className='home'>
+            <Link to='/table'>Watch Live table</Link>
+        </div>
     );
 }
 
