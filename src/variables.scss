@@ -1,0 +1,51 @@
+// variables
+$breakpoint-xxxs: 280px;
+$breakpoint-xxs: 380px;
+$breakpoint-xs: 768px;
+$breakpoint-sm: 992px;
+$breakpoint-md: 1200px;
+
+// ----------Define colors-----------
+
+$primary-color: #0085ff;
+$primary-color-hover: #0071d9;
+$primary-color-highlight: #dff0ff;
+
+$grey-color: #323338;
+$grey-color-x1: #c5c7d0;
+$grey-color-x2: #e6e9ef;
+$grey-color-x3: #f5f6f8;
+$grey-color-x4: #ffffff;
+
+$text-color-white: #fff;
+$text-color-black: #323338;
+$text-color-grey: #676879;
+$text-color-link: #1f76c2;
+
+$red-color: #e44258;
+$red-color-hover: #b63546;
+$red-color-highlight: #f9dade;
+// ------------Mixins Definitions------------------
+
+@mixin flex() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column() {
+    @include flex();
+    flex-direction: column;
+}
+
+@mixin flex-row() {
+    @include flex();
+    flex-direction: row;
+}
+
+@mixin overflow-fix() {
+    overflow-y: hidden !important;
+    overflow-x: hidden;
+}
+
+// -----------end of Mixins-------------

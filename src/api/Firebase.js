@@ -16,7 +16,4 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
-// const atloDB = firebase.database();
-// console.log(atloDB);
-
 export default firebase;

@@ -1,35 +1,21 @@
-import './App.css';
+import './App.scss';
 import React, { useContext } from 'react';
 import AtloContext, { Provider } from './store/Context';
+import DT from './component/DataTable/DataTable';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
     return (
         <Provider>
-            <div className='App'>Hell yeah! Hosting working fine now!</div>
-            <Test></Test>
+            <Router>
+                <Switch>
+                    <Route path='/table'>
+                        <DT />
+                    </Route>
+                </Switch>
+            </Router>
         </Provider>
     );
-}
-
-function Test() {
-    const contextData = useContext(AtloContext);
-    debugger;
-    return (
-        <div>
-            {contextData &&
-                contextData.userArray &&
-                Object.keys(contextData.userArray).map(function (key) {
-                    return (
-                        <option value={key}>
-                            {contextData.userArray[key].username}
-                        </option>
-                    );
-                })}
-        </div>
-    );
-    // <>
-
-    // </>
 }
 
 export default App;
