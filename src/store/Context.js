@@ -74,7 +74,7 @@ export function Provider(props) {
                 tempArray.push(singleItem);
             }
         }
-        debugger;
+
         // const todaysTempArray = ""
         setTodayDataArray();
         setAttendanceCalc(tempArray);
@@ -105,10 +105,7 @@ function calculateEffective(item) {
 
     let effective = getDifferenceOfThese(item.clockedIn, item.clockedOut);
     effective = effective - getDifferenceOfThese(item.lunchIn, item.lunchOut);
-    effective = effective - getDifferenceOfThese(item.teaIn, item.teaOut);
-    // const hours = Math.floor(effective / 60);
-    // const minutes = effective % 60;
-    return secondsToHms(effective);
+    return effective - getDifferenceOfThese(item.teaIn, item.teaOut);
 }
 
 function getDifferenceOfThese(date1, date2) {
@@ -116,16 +113,4 @@ function getDifferenceOfThese(date1, date2) {
     const start = moment(date1);
     const end = date2 === undefined ? moment() : moment(date2);
     return end.diff(start, 'second');
-}
-
-function secondsToHms(d) {
-    d = Number(d);
-    var h = Math.floor(d / 3600);
-    var m = Math.floor((d % 3600) / 60);
-    var s = Math.floor((d % 3600) % 60);
-
-    var hDisplay = h > 0 ? h + 'hr ' : '';
-    var mDisplay = m > 0 ? m + 'min ' : '';
-    var sDisplay = s > 0 ? s + 's' : '';
-    return hDisplay + mDisplay + sDisplay;
 }
