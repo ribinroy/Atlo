@@ -2,7 +2,7 @@ import './DataTable.scss';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import AtloContext from './../../store/Context';
 import moment from 'moment';
 import GoogleMapReact from 'google-map-react';
@@ -13,6 +13,55 @@ export default function DT() {
     const [locationData, setLocationData] = useState({});
     const [showPopUp, setPopUp] = useState(false);
 
+    const handleRowClicked = useCallback((row) => {
+        setLocationData({
+            lat: parseFloat(row.locationLat),
+            long: parseFloat(row.locationLong),
+            center: {
+                lat: parseFloat(row.locationLat),
+                lng: parseFloat(row.locationLong),
+            },
+            user: row.username,
+        });
+        setPopUp(true);
+    }, []);
+
+    const AnyReactComponent = ({ text }) => (
+        <div className='user-pointed'>{text}</div>
+    );
+
+    return (
+        <div className='dt-wrap'>
+            <DataTableComponent
+                handleRowClicked={handleRowClicked}
+                data={contextData.attendanceCalc}
+            />
+            <PopUp onClose={() => setPopUp(false)} visible={showPopUp}>
+                {locationData.center !== undefined && (
+                    <div className='map-wrap'>
+                        <GoogleMapReact
+                            bootstrapURLKeys={{
+                                key: 'AIzaSyB-SMSufNXZ4YDBTRMF_-vgsktcuAhXDCA',
+                            }}
+                            defaultCenter={locationData.center}
+                            defaultZoom={20}>
+                            <AnyReactComponent
+                                lat={locationData.lat}
+                                lng={locationData.long}
+                                text={locationData.user}
+                            />
+                        </GoogleMapReact>
+                    </div>
+                )}
+            </PopUp>
+        </div>
+    );
+}
+
+const DataTableComponent = React.memo(function DataTableComponent({
+    handleRowClicked,
+    data,
+}) {
     const HMSFormatter = (d, key) => {
         debugger;
         d = Number(d[key]);
@@ -126,60 +175,24 @@ export default function DT() {
         },
     ];
 
-    const handleRowClicked = (row) => {
-        setLocationData({
-            lat: parseFloat(row.locationLat),
-            long: parseFloat(row.locationLong),
-            center: {
-                lat: parseFloat(row.locationLat),
-                lng: parseFloat(row.locationLong),
-            },
-            user: row.username,
-        });
-        setPopUp(true);
-    };
-
-    const AnyReactComponent = ({ text }) => (
-        <div className='user-pointed'>{text}</div>
-    );
     const tableData = {
         columns,
-        data: contextData.attendanceCalc,
+        data,
     };
 
     return (
-        <div className='dt-wrap'>
-            <DataTableExtensions {...tableData}>
-                <DataTable
-                    columns={columns}
-                    data={contextData.attendanceCalc}
-                    noHeader
-                    theme={'dark'}
-                    defaultSortField='date'
-                    defaultSortAsc={false}
-                    pagination
-                    highlightOnHover
-                    onRowClicked={handleRowClicked}
-                />
-            </DataTableExtensions>
-            <PopUp onClose={() => setPopUp(false)} visible={showPopUp}>
-                {locationData.center !== undefined && (
-                    <div className='map-wrap'>
-                        <GoogleMapReact
-                            bootstrapURLKeys={{
-                                key: 'AIzaSyB-SMSufNXZ4YDBTRMF_-vgsktcuAhXDCA',
-                            }}
-                            defaultCenter={locationData.center}
-                            defaultZoom={20}>
-                            <AnyReactComponent
-                                lat={locationData.lat}
-                                lng={locationData.long}
-                                text={locationData.user}
-                            />
-                        </GoogleMapReact>
-                    </div>
-                )}
-            </PopUp>
-        </div>
+        <DataTableExtensions {...tableData}>
+            <DataTable
+                columns={columns}
+                data={data}
+                noHeader
+                theme={'dark'}
+                defaultSortField='date'
+                defaultSortAsc={false}
+                pagination
+                highlightOnHover
+                onRowClicked={handleRowClicked}
+            />
+        </DataTableExtensions>
     );
-}
+});
