@@ -7,15 +7,15 @@ $breakpoint-md: 1200px;
 
 // ----------Define colors-----------
 
-$primary-color: #0085ff;
-$primary-color-hover: #0071d9;
+$primary-color: #424242;
+// $primary-color-hover: #0071d9;
 $primary-color-highlight: #dff0ff;
 
-$grey-color: #323338;
-$grey-color-x1: #c5c7d0;
-$grey-color-x2: #e6e9ef;
-$grey-color-x3: #f5f6f8;
-$grey-color-x4: #ffffff;
+// $grey-color: #323338;
+// $grey-color-x1: #c5c7d0;
+// $grey-color-x2: #e6e9ef;
+// $grey-color-x3: #f5f6f8;
+// $grey-color-x4: #ffffff;
 
 $text-color-white: #fff;
 $text-color-black: #323338;
@@ -25,6 +25,8 @@ $text-color-link: #1f76c2;
 $red-color: #e44258;
 $red-color-hover: #b63546;
 $red-color-highlight: #f9dade;
+
+$green-color: #42e44e;
 // ------------Mixins Definitions------------------
 
 @mixin flex() {

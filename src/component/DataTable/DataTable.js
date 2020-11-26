@@ -4,9 +4,13 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import React, { useContext, useState, useCallback } from 'react';
 import AtloContext from './../../store/Context';
-import moment from 'moment';
 import GoogleMapReact from 'google-map-react';
 import PopUp from './../PopUp/PopUp';
+import {
+    HMSFormatter,
+    timeFormatter,
+    dateOnlyFormatter,
+} from './../../utilities';
 
 export default function DT() {
     const contextData = useContext(AtloContext);
@@ -62,48 +66,6 @@ const DataTableComponent = React.memo(function DataTableComponent({
     handleRowClicked,
     data,
 }) {
-    const HMSFormatter = (d, key) => {
-        debugger;
-        d = Number(d[key]);
-        var h = Math.floor(d / 3600);
-        var m = Math.floor((d % 3600) / 60);
-        var s = Math.floor((d % 3600) % 60);
-        var hDisplay = h > 0 ? h + 'hr ' : '';
-        var mDisplay = m > 0 ? m + 'min ' : '';
-        var sDisplay = s > 0 ? s + 's' : '';
-        const string = hDisplay + mDisplay + sDisplay;
-        return (
-            <span>
-                <span className='sort-hider'>{d}</span>
-                {string !== '' ? string : 'N/A'}
-            </span>
-        );
-    };
-
-    const dateOnlyFormatter = (d, key) =>
-        d[key] === undefined ? (
-            'N/A'
-        ) : (
-            <span title={moment(d[key]).format('DD/MMMM/YYYY')}>
-                <span className='sort-hider'>
-                    {moment(d[key]).format('YYYY/MM/DD hh:mm:ss A')}
-                </span>
-                {moment(d[key]).format('DD/MMM/YYYY')}
-            </span>
-        );
-
-    const timeFormatter = (d, key) =>
-        d[key] === undefined ? (
-            'N/A'
-        ) : (
-            <span title={moment(d[key]).format('DD/MMMM/YYYY hh:mm A')}>
-                <span className='sort-hider'>
-                    {moment(d[key]).format('YYYY/MM/DD hh:mm:ss A')}
-                </span>
-                {moment(d[key]).format('hh:mm:ss A')}
-            </span>
-        );
-
     const columns = [
         {
             name: 'Date',
@@ -113,13 +75,13 @@ const DataTableComponent = React.memo(function DataTableComponent({
         },
         {
             name: 'Name',
-            selector: 'username',
+            selector: 'name',
             sortable: true,
         },
         {
-            name: 'Address',
-            selector: 'address',
-            sortable: false,
+            name: 'User Name',
+            selector: 'username',
+            sortable: true,
         },
         {
             name: 'UserType',

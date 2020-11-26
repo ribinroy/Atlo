@@ -9,12 +9,14 @@ export function Provider(props) {
     const [currentUser, setCurrentUser] = useState(false);
     const [loadStatus, setLoadStatus] = useState(false);
     const [attendanceArray, setAttendanceArray] = useState({});
-    const [userArray, setUsersArray] = useState({});
+    const [userArray, setUsersArray] = useState([]);
     const [userArrayCalc, setUserArrayCalc] = useState([]);
     const [attendanceCalc, setAttendanceCalc] = useState([]);
-    const [todayDataArray, setTodayDataArray] = useState([]);
+    const [todayUsersData, setTodayUsersData] = useState([]);
 
     useEffect(() => {
+        //initial data load
+
         var getAllUsers = firebase.database().ref('users/');
         getAllUsers.on('value', function (response) {
             setUsersArray(response.val());
@@ -27,6 +29,7 @@ export function Provider(props) {
     }, []);
 
     useEffect(() => {
+        //create user array compatible
         if (
             Object.keys(userArray).length === 0 &&
             userArray.constructor === Object
@@ -44,6 +47,7 @@ export function Provider(props) {
     }, [userArray]);
 
     useEffect(() => {
+        //create an array of all days attendance for each users - mainly for Datatable
         if (
             Object.keys(attendanceArray).length === 0 &&
             attendanceArray.constructor === Object &&
@@ -65,9 +69,14 @@ export function Provider(props) {
 
                 if (userAssociated.length > 0) {
                     singleItem.username = userAssociated[0].username;
-                    singleItem.address = userAssociated[0].address;
+                    singleItem.department = userAssociated[0].department;
                     singleItem.userid = userAssociated[0].userid;
                     singleItem.userType = userAssociated[0].userType;
+                    singleItem.name = userAssociated[0].name;
+                    singleItem.number = userAssociated[0].number;
+                    singleItem.designation = userAssociated[0].designation;
+                    singleItem.branch = userAssociated[0].branch;
+                    singleItem.emailid = userAssociated[0].emailid;
                 }
 
                 singleItem.effective = calculateEffective(singleItem);
@@ -75,18 +84,29 @@ export function Provider(props) {
             }
         }
 
-        // const todaysTempArray = ""
-        setTodayDataArray();
+        const today = moment().format('YYYY-MM-DD');
+        setTodayUsersData(
+            userArrayCalc.map((el) => {
+                const thisUserTodayAttendance = tempArray.filter((item) => {
+                    return item.date === today && item.userToken === el.token;
+                });
+                el.todayAttendance = false;
+                if (thisUserTodayAttendance.length > 0)
+                    el.todayAttendance = thisUserTodayAttendance;
+                return el;
+            })
+        );
+
         setAttendanceCalc(tempArray);
     }, [attendanceArray, userArrayCalc]);
 
     const contextData = {
         currentUser,
         attendanceArray,
-        userArray,
+        userArrayCalc,
         attendanceCalc,
         loadStatus,
-        todayDataArray,
+        todayUsersData,
         // setAttendanceArray: (data) => {
         //     setAttendanceArray(data);
         //     setLoadStatus(true);

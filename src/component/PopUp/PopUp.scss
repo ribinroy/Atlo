@@ -24,7 +24,7 @@
 
     .pop-up-box {
         width: calc(100vw - 50px);
-        background: $grey-color-x4;
+        background: $primary-color;
         height: calc(100vh - 100px);
         padding: 10px;
         padding-top: 30px;
@@ -32,7 +32,7 @@
         transition: transform 0.6s;
         margin-bottom: 40px;
         transform: scale(0);
-        box-shadow: 0px 15px 50px 0px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 5px 50px 0px rgba(0, 0, 0, 1);
 
         &.responsive {
             height: auto;
@@ -54,6 +54,7 @@
                 cursor: pointer;
                 float: right;
                 font-size: 18px;
+                color: $text-color-white;
             }
         }
 
@@ -72,4 +73,13 @@
             flex-direction: column;
         }
     }
+}
+
+.pop-up-wrap.short-pop .pop-up-box {
+    width: calc(50vw - 50px);
+    overflow: auto;
+    padding: 30px;
+    min-width: 400px;
+    height: auto;
+    max-height: calc(100vh - 90px);
 }

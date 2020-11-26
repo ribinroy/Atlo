@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './PopUp.scss';
 
-export default function PopUp({ visible, children, onClose, responsive }) {
+export default function PopUp({
+    visible,
+    children,
+    onClose,
+    responsive,
+    className,
+}) {
     const [showData, setShowData] = useState(false);
     useEffect(() => {
         if (visible) {
@@ -16,7 +22,10 @@ export default function PopUp({ visible, children, onClose, responsive }) {
     }, [showData, visible]);
 
     return (
-        <div className={'pop-up-wrap' + (visible ? ' active' : '')}>
+        <div
+            className={
+                'pop-up-wrap ' + (visible ? ' active ' : '') + className
+            }>
             <div
                 className={
                     'pop-up-box ' + (visible ? ' active ' : '') + responsive

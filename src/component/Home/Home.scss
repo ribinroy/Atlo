@@ -7,3 +7,51 @@
         color: $text-color-white;
     }
 }
+
+.add-new {
+    label.field-wrap {
+        margin-bottom: 20px;
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid $primary-color-highlight;
+        padding-bottom: 20px;
+    }
+
+    .input-area {
+        width: 100%;
+        padding: 10px 8px;
+        border-radius: 5px;
+        border: 0px;
+        margin: 3px 0;
+    }
+
+    .rfp-error-label {
+        font-size: 12px;
+        color: $red-color;
+    }
+
+    button {
+        float: right;
+    }
+}
+
+.all-users-wrap {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+    @include flex-row();
+    flex-wrap: wrap;
+
+    .user-item {
+        background: $green-color;
+        min-width: 190px;
+        flex: 1;
+        padding: 10px;
+        margin: 5px;
+        border-radius: 2px;
+
+        &.not-shown {
+            background: $red-color;
+        }
+    }
+}
