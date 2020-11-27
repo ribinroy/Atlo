@@ -92,7 +92,15 @@ export function Provider(props) {
                 });
                 el.todayAttendance = false;
                 if (thisUserTodayAttendance.length > 0)
-                    el.todayAttendance = thisUserTodayAttendance;
+                    el.todayAttendance = thisUserTodayAttendance[0];
+
+                el.isShown =
+                    el.todayAttendance === false
+                        ? 'No Show'
+                        : el.todayAttendance.weekOff === 'true'
+                        ? 'Week Off'
+                        : 'Shown';
+                el.effective = calculateEffective(el.todayAttendance);
                 return el;
             })
         );
@@ -102,6 +110,7 @@ export function Provider(props) {
 
     const contextData = {
         currentUser,
+        setCurrentUser,
         attendanceArray,
         userArrayCalc,
         attendanceCalc,

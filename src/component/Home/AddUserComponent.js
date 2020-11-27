@@ -35,7 +35,7 @@ export default function AddUserComponent() {
         return token;
     }
     return (
-        <div className='add-new'>
+        <div className='add-new form-styles'>
             <PopUp
                 className='short-pop'
                 onClose={() => setPopUp(false)}
@@ -167,7 +167,7 @@ export default function AddUserComponent() {
                     </div>
                 </Form>
             </PopUp>
-            <button onClick={() => setPopUp(true)}>Add</button>
+            <button onClick={() => setPopUp(true)}>Add new user</button>
         </div>
     );
 }

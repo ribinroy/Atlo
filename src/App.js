@@ -4,26 +4,111 @@ import AtloContext, { Provider } from './store/Context';
 import DT from './component/DataTable/DataTable';
 import Home from './component/Home/Home';
 import Header from './component/Header/Header';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Login from './component/Login/Login';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from 'react-router-dom';
 
-function App() {
+import { authUser, resetAuthentication } from './utilities';
+
+export default function App() {
     return (
         <Provider>
-            <Router>
-                <div className='main-container'>
-                    <Header />
-                    <Switch>
-                        <Route exact path='/'>
-                            <Home />
-                        </Route>
-                        <Route path='/full-list'>
-                            <DT />
-                        </Route>
-                    </Switch>
-                </div>
-            </Router>
+            <AppRouter></AppRouter>
         </Provider>
     );
 }
 
-export default App;
+function AppRouter() {
+    const contextData = useContext(AtloContext);
+    return (
+        <Router>
+            {contextData.userArrayCalc.length > 0 ? (
+                <div className='main-container'>
+                    <Switch>
+                        <ValidAuthRoute exact path='/'>
+                            <Login />
+                        </ValidAuthRoute>
+                        <ValidAuthRoute exact path='/login'>
+                            <Login />
+                        </ValidAuthRoute>
+                        <PrivateRoute exact path='/home'>
+                            <Header />
+                            <Home />
+                        </PrivateRoute>
+                        <PrivateRoute exact path='/full-list'>
+                            <Header />
+                            <DT />
+                        </PrivateRoute>
+                    </Switch>
+                </div>
+            ) : (
+                <div className='flex--full-wrap'>Loading..</div>
+            )}
+        </Router>
+    );
+}
+function PrivateRoute({ children, ...rest }) {
+    const contextData = useContext(AtloContext);
+    const authUserName = authUser();
+    if (authUserName !== null && contextData.userArrayCalc.length > 0) {
+        const match = contextData.userArrayCalc.filter(
+            (el) => el.userType === 'Admin' && el.username === authUserName
+        );
+        if (match.length > 0) contextData.setCurrentUser(match[0]);
+        else resetAuthentication();
+    }
+    return (
+        <Route
+            {...rest}
+            render={({ location }) =>
+                contextData.currentUser ? (
+                    children
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: '/login',
+                            state: {
+                                from: location,
+                            },
+                        }}
+                    />
+                )
+            }
+        />
+    );
+}
+
+function ValidAuthRoute({ children, ...rest }) {
+    const contextData = useContext(AtloContext);
+    const authUserName = authUser();
+    if (authUserName !== null && contextData.userArrayCalc.length > 0) {
+        const match = contextData.userArrayCalc.filter(
+            (el) => el.userType === 'Admin' && el.username === authUserName
+        );
+        if (match.length > 0) contextData.setCurrentUser(match[0]);
+        else resetAuthentication();
+    }
+    return (
+        <Route
+            {...rest}
+            render={({ location }) =>
+                !contextData.currentUser ? (
+                    children
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: '/home',
+                            state: {
+                                from: location,
+                            },
+                        }}
+                    />
+                )
+            }
+        />
+    );
+}

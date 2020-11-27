@@ -25,7 +25,7 @@ export default function DT() {
                 lat: parseFloat(row.locationLat),
                 lng: parseFloat(row.locationLong),
             },
-            user: row.username,
+            user: row.name,
         });
         setPopUp(true);
     }, []);
@@ -36,6 +36,7 @@ export default function DT() {
 
     return (
         <div className='dt-wrap'>
+            <h1>Full Record</h1>
             <DataTableComponent
                 handleRowClicked={handleRowClicked}
                 data={contextData.attendanceCalc}
@@ -87,6 +88,14 @@ const DataTableComponent = React.memo(function DataTableComponent({
             name: 'UserType',
             selector: 'userType',
             sortable: false,
+        },
+        {
+            name: 'Online',
+            selector: 'weekOff',
+            sortable: true,
+            cell: (d) => {
+                return d.weekOff === 'true' ? 'Week Off' : 'Shown';
+            },
         },
         {
             name: 'Location',

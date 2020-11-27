@@ -1,0 +1,13 @@
+@import './../../variables.scss';
+
+.login-wrap {
+    max-width: 300px;
+    color: #fff;
+
+    button {
+        width: 100%;
+        background: $primary-main-color;
+        padding: 10px;
+        color: #fff;
+    }
+}
