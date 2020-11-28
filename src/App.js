@@ -5,6 +5,7 @@ import DT from './component/DataTable/DataTable';
 import Home from './component/Home/Home';
 import Header from './component/Header/Header';
 import Login from './component/Login/Login';
+import Footer from './component/Footer/Footer';
 import {
     BrowserRouter as Router,
     Switch,
@@ -48,6 +49,7 @@ function AppRouter() {
             ) : (
                 <div className='flex--full-wrap'>Loading..</div>
             )}
+            <Footer />
         </Router>
     );
 }
