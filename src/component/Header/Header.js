@@ -14,14 +14,14 @@ export default function Header() {
         window.location.reload();
     }
     return (
-        <div className='container home-wrap'>
-            <Link className='button nav-item' to='/'>
-                Go Home
-            </Link>
-            <Link className='button nav-item' to='/full-list'>
-                Go to dashboard full
-            </Link>
+        <div className='container header-wrap'>
             <button onClick={() => logOut()}>Logout</button>
+            <Link className='button nav-item' to='/full-list'>
+                Dashboard
+            </Link>
+            <Link className='button nav-item home' to='/'>
+                Atlo
+            </Link>
         </div>
     );
 }

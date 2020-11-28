@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;700&display=swap');
 @import './variables.scss';
 
 body {
     background-color: #424242;
+    font-family: 'Jura', sans-serif;
 
     * {
         box-sizing: border-box;
@@ -42,6 +44,7 @@ button,
     cursor: pointer;
     text-decoration: none;
     border-color: $primary-main-color;
+    font-family: 'Jura', sans-serif;
 }
 
 h1 {

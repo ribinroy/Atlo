@@ -1,6 +1,9 @@
 @import './../../variables.scss';
 
 .dt-wrap {
+    float: left;
+    width: 100%;
+
     .sort-hider {
         display: none;
     }

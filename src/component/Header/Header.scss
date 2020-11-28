@@ -1,11 +1,45 @@
 @import './../../variables.scss';
 
-.home-wrap {
+.header-wrap {
+    margin-bottom: 10px;
+    float: left;
+    width: 100%;
+    margin-left: 50% !important;
+    transform: translate(-50%);
+
+    .home {
+        text-align: left;
+        width: auto;
+        margin: 0px !important;
+        float: left;
+        color: $primary-main-color;
+        float: left !important;
+        background-color: transparent;
+        font-size: 32px;
+        padding: 0px !important;
+        font-weight: 500;
+    }
+
     a.nav-item {
-        margin: 0 12px;
+        margin: 0 5px;
+        float: right;
     }
 
     button {
         float: right;
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .header-wrap {
+        a.button.nav-item,
+        button {
+            padding: 8px 10px !important;
+
+            &.home {
+                padding: 0 !important;
+            }
+        }
     }
 }

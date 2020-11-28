@@ -77,10 +77,9 @@ export function Provider(props) {
                     singleItem.designation = userAssociated[0].designation;
                     singleItem.branch = userAssociated[0].branch;
                     singleItem.emailid = userAssociated[0].emailid;
+                    singleItem.effective = calculateEffective(singleItem);
+                    tempArray.push(singleItem);
                 }
-
-                singleItem.effective = calculateEffective(singleItem);
-                tempArray.push(singleItem);
             }
         }
 
