@@ -49,9 +49,10 @@ export function Provider(props) {
     useEffect(() => {
         //create an array of all days attendance for each users - mainly for Datatable
         if (
-            Object.keys(attendanceArray).length === 0 &&
-            attendanceArray.constructor === Object &&
-            userArrayCalc.length > 0
+            attendanceArray === null ||
+            (Object.keys(attendanceArray).length === 0 &&
+                attendanceArray.constructor === Object &&
+                userArrayCalc.length > 0)
         )
             return false;
 

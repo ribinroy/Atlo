@@ -44,6 +44,10 @@ function AppRouter() {
                             <Header />
                             <DT />
                         </PrivateRoute>
+                        <PrivateRoute exact path='/users'>
+                            <Header />
+                            WIP
+                        </PrivateRoute>
                     </Switch>
                 </div>
             ) : (

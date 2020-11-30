@@ -19,6 +19,9 @@ export default function Header() {
             <Link className='button nav-item' to='/full-list'>
                 Dashboard
             </Link>
+            <Link className='button nav-item' to='/users'>
+                Users
+            </Link>
             <Link className='button nav-item home' to='/'>
                 Atlo
             </Link>
