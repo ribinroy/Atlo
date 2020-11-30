@@ -16,6 +16,7 @@
     opacity: 0;
     @include flex-row();
     pointer-events: none;
+    color: #fff;
 
     &.active {
         opacity: 1;

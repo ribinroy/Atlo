@@ -1,9 +1,9 @@
-import './Home.scss';
+import './../Home/Home.scss';
 import React, { useState, useContext } from 'react';
-import { addUser } from './../../api/add-user-api';
-import PopUp from './../PopUp/PopUp';
+import { addUser } from '../../api/add-user-api';
+import PopUp from '../PopUp/PopUp';
 import { Button, Field, Form, Select } from 'react-form-package';
-import AtloContext from './../../store/Context';
+import AtloContext from '../../store/Context';
 
 // onClick={() => addUser()
 export default function AddUserComponent() {

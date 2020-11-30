@@ -1,17 +1,17 @@
 import './Home.scss';
 import React, { useContext, useCallback, useState } from 'react';
-import AtloContext from './../../store/Context';
+import AtloContext from '../../store/Context';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import GoogleMapReact from 'google-map-react';
-import PopUp from './../PopUp/PopUp';
+import PopUp from '../PopUp/PopUp';
 import {
     HMSFormatter,
     timeFormatter,
     dateOnlyFormatter,
     timeFormatterExtraKey,
-} from './../../utilities';
+} from '../../utilities';
 
 export default function ListAllUsers() {
     const contextData = useContext(AtloContext);
@@ -28,7 +28,6 @@ export default function ListAllUsers() {
             return false;
         }
 
-        debugger;
         setLocationData({
             lat: parseFloat(row.todayAttendance.locationLat),
             long: parseFloat(row.todayAttendance.locationLong),
@@ -142,7 +141,6 @@ export default function ListAllUsers() {
                     </div>
                 )}
             </PopUp>
-            <h1>Today</h1>
             {/* {contextData.todayUsersData.length > 0 &&
                 contextData.todayUsersData.map((el, index) => {
                     return (
@@ -156,6 +154,7 @@ export default function ListAllUsers() {
                         </div>
                     );
                 })} */}
+            <h1>Today</h1>
 
             <DataTableExtensions {...tableData}>
                 <DataTable

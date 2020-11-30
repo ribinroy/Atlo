@@ -1,19 +1,19 @@
-import './DataTable.scss';
+import './UsersList.scss';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import React, { useContext, useState, useCallback } from 'react';
-import AtloContext from './../../store/Context';
+import AddUserComponent from '../UsersList/AddUserComponent';
+import AtloContext from '../../store/Context';
 import GoogleMapReact from 'google-map-react';
-import PopUp from './../PopUp/PopUp';
-import deleteAttendence from './../../api/delete-attendence';
+import PopUp from '../PopUp/PopUp';
 import {
     HMSFormatter,
     timeFormatter,
     dateOnlyFormatter,
-} from './../../utilities';
+} from '../../utilities';
 
-export default function DT() {
+export default function UsersList() {
     const contextData = useContext(AtloContext);
     const [locationData, setLocationData] = useState({});
     const [showPopUp, setPopUp] = useState(false);
@@ -35,27 +35,16 @@ export default function DT() {
         <div className='user-pointed'>{text}</div>
     );
 
-    function clearAttendenceData() {
-        const proceedKey = Math.round(Math.random() * 10000000) + '';
-        const enteredKey = prompt(
-            'There is no recover once you proceed.\nIf you wish to proceed please confirm the below number \n' +
-                proceedKey
-        );
-        if (enteredKey === proceedKey) {
-            deleteAttendence();
-        } else alert('Numbers dont match. Cancelled');
-    }
     return (
-        <div className='dt-wrap'>
-            <h1>Full Record</h1>
-            <button onClick={() => clearAttendenceData()}>
-                Clear all attendence
-            </button>
-            <DataTableComponent
-                handleRowClicked={handleRowClicked}
-                data={contextData.attendanceCalc}
-            />
-            <PopUp onClose={() => setPopUp(false)} visible={showPopUp}>
+        <div className='container'>
+            <div className='dt-wrap'>
+                <h1>Users List</h1>
+                <AddUserComponent />
+                <DataTableComponent
+                    handleRowClicked={handleRowClicked}
+                    data={contextData.userArrayCalc}
+                />
+                {/* <PopUp onClose={() => setPopUp(false)} visible={showPopUp}>
                 {locationData.center !== undefined && (
                     <div className='map-wrap'>
                         <GoogleMapReact
@@ -72,7 +61,8 @@ export default function DT() {
                         </GoogleMapReact>
                     </div>
                 )}
-            </PopUp>
+            </PopUp> */}
+            </div>
         </div>
     );
 }
@@ -82,12 +72,6 @@ const DataTableComponent = React.memo(function DataTableComponent({
     data,
 }) {
     const columns = [
-        {
-            name: 'Date',
-            selector: 'date',
-            sortable: true,
-            cell: (d) => dateOnlyFormatter(d, 'date'),
-        },
         {
             name: 'Name',
             selector: 'name',
@@ -99,65 +83,40 @@ const DataTableComponent = React.memo(function DataTableComponent({
             sortable: true,
         },
         {
-            name: 'UserType',
+            name: 'Branch',
+            selector: 'branch',
+            sortable: true,
+        },
+        {
+            name: 'Department',
+            selector: 'department',
+            sortable: true,
+        },
+        {
+            name: 'Designation',
+            selector: 'designation',
+            sortable: true,
+        },
+        {
+            name: 'Email',
+            selector: 'email',
+            sortable: true,
+        },
+        {
+            name: 'Number',
+            selector: 'number',
+            sortable: true,
+        },
+        {
+            name: 'Type',
             selector: 'userType',
-            sortable: false,
-        },
-        {
-            name: 'Online',
-            selector: 'weekOff',
             sortable: true,
-            cell: (d) => {
-                return d.weekOff === 'true' ? 'Week Off' : 'Shown';
-            },
         },
-        {
-            name: 'Location',
-            selector: 'LocationName',
-            sortable: false,
-        },
-        {
-            name: 'In',
-            selector: 'clockedIn',
-            sortable: true,
-            cell: (d) => timeFormatter(d, 'clockedIn'),
-        },
-        {
-            name: 'Lunch out',
-            selector: 'lunchOut',
-            sortable: true,
-            cell: (d) => timeFormatter(d, 'lunchOut'),
-        },
-        {
-            name: 'Lunch In',
-            selector: 'lunchIn',
-            sortable: true,
-            cell: (d) => timeFormatter(d, 'lunchIn'),
-        },
-        {
-            name: 'Tea Out',
-            selector: 'teaOut',
-            sortable: true,
-            cell: (d) => timeFormatter(d, 'teaOut'),
-        },
-        {
-            name: 'Tea In',
-            selector: 'teaIn',
-            sortable: true,
-            cell: (d) => timeFormatter(d, 'teaIn'),
-        },
-        {
-            name: 'Out',
-            selector: 'clockedOut',
-            sortable: true,
-            cell: (d) => timeFormatter(d, 'clockedOut'),
-        },
-        {
-            name: 'Effective',
-            selector: 'effective',
-            sortable: true,
-            cell: (d) => HMSFormatter(d, 'effective'),
-        },
+        // {
+        //     name: 'Device Logged in',
+        //     selector: 'deviceModel',
+        //     sortable: true,
+        // },
     ];
 
     const tableData = {
@@ -172,7 +131,7 @@ const DataTableComponent = React.memo(function DataTableComponent({
                 data={data}
                 noHeader
                 theme={'dark'}
-                defaultSortField='date'
+                defaultSortField='name'
                 defaultSortAsc={false}
                 pagination
                 highlightOnHover

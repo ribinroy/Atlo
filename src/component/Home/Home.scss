@@ -12,9 +12,15 @@
     float: left;
     width: 100%;
     margin-top: 10px;
-    @include flex-row();
-    flex-wrap: wrap;
+    // @include flex-row();
+    // flex-wrap: wrap;
 
+    h1 {
+        width: 100%;
+    }
+    button {
+        float: right;
+    }
     .user-item {
         background: $green-color;
         min-width: 190px;

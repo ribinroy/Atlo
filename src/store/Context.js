@@ -20,6 +20,7 @@ export function Provider(props) {
         var getAllUsers = firebase.database().ref('users/');
         getAllUsers.on('value', function (response) {
             setUsersArray(response.val());
+            setLoadStatus(true);
         });
 
         var getAllAttendance = firebase.database().ref('attendence/');
@@ -31,8 +32,9 @@ export function Provider(props) {
     useEffect(() => {
         //create user array compatible
         if (
-            Object.keys(userArray).length === 0 &&
-            userArray.constructor === Object
+            userArray === null ||
+            (Object.keys(userArray).length === 0 &&
+                userArray.constructor === Object)
         )
             return false;
 
@@ -91,6 +93,7 @@ export function Provider(props) {
                     return item.date === today && item.userToken === el.token;
                 });
                 el.todayAttendance = false;
+                debugger;
                 if (thisUserTodayAttendance.length > 0)
                     el.todayAttendance = thisUserTodayAttendance[0];
 

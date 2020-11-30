@@ -6,6 +6,7 @@ import Home from './component/Home/Home';
 import Header from './component/Header/Header';
 import Login from './component/Login/Login';
 import Footer from './component/Footer/Footer';
+import UsersList from './component/UsersList/UsersList';
 import {
     BrowserRouter as Router,
     Switch,
@@ -27,7 +28,7 @@ function AppRouter() {
     const contextData = useContext(AtloContext);
     return (
         <Router>
-            {contextData.userArrayCalc.length > 0 ? (
+            {contextData.loadStatus ? (
                 <div className='main-container'>
                     <Switch>
                         <ValidAuthRoute exact path='/'>
@@ -46,7 +47,7 @@ function AppRouter() {
                         </PrivateRoute>
                         <PrivateRoute exact path='/users'>
                             <Header />
-                            WIP
+                            <UsersList />
                         </PrivateRoute>
                     </Switch>
                 </div>
