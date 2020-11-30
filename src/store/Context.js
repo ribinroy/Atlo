@@ -95,10 +95,12 @@ export function Provider(props) {
 
                 el.isShown =
                     el.todayAttendance === false
-                        ? 'No Show'
+                        ? 'Not present'
                         : el.todayAttendance.weekOff === 'true'
                         ? 'Week Off'
-                        : 'Shown';
+                        : el.todayAttendance.leave === 'true'
+                        ? 'Leave'
+                        : 'Present';
                 el.effective = calculateEffective(el.todayAttendance);
                 return el;
             })

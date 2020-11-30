@@ -78,12 +78,6 @@ export default function ListAllUsers() {
                 timeFormatterExtraKey(d, 'todayAttendance', 'clockedIn'),
         },
         {
-            name: 'Lunch In',
-            selector: 'lunchIn',
-            sortable: true,
-            cell: (d) => timeFormatterExtraKey(d, 'todayAttendance', 'lunchIn'),
-        },
-        {
             name: 'Lunch out',
             selector: 'lunchOut',
             sortable: true,
@@ -91,16 +85,22 @@ export default function ListAllUsers() {
                 timeFormatterExtraKey(d, 'todayAttendance', 'lunchOut'),
         },
         {
-            name: 'Tea In',
-            selector: 'teaIn',
+            name: 'Lunch In',
+            selector: 'lunchIn',
             sortable: true,
-            cell: (d) => timeFormatterExtraKey(d, 'todayAttendance', 'teaIn'),
+            cell: (d) => timeFormatterExtraKey(d, 'todayAttendance', 'lunchIn'),
         },
         {
             name: 'Tea Out',
             selector: 'teaOut',
             sortable: true,
             cell: (d) => timeFormatterExtraKey(d, 'todayAttendance', 'teaOut'),
+        },
+        {
+            name: 'Tea In',
+            selector: 'teaIn',
+            sortable: true,
+            cell: (d) => timeFormatterExtraKey(d, 'todayAttendance', 'teaIn'),
         },
         {
             name: 'Out',

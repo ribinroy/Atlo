@@ -109,28 +109,28 @@ const DataTableComponent = React.memo(function DataTableComponent({
             cell: (d) => timeFormatter(d, 'clockedIn'),
         },
         {
-            name: 'Lunch In',
-            selector: 'lunchIn',
-            sortable: true,
-            cell: (d) => timeFormatter(d, 'lunchIn'),
-        },
-        {
             name: 'Lunch out',
             selector: 'lunchOut',
             sortable: true,
             cell: (d) => timeFormatter(d, 'lunchOut'),
         },
         {
-            name: 'Tea In',
-            selector: 'teaIn',
+            name: 'Lunch In',
+            selector: 'lunchIn',
             sortable: true,
-            cell: (d) => timeFormatter(d, 'teaIn'),
+            cell: (d) => timeFormatter(d, 'lunchIn'),
         },
         {
             name: 'Tea Out',
             selector: 'teaOut',
             sortable: true,
             cell: (d) => timeFormatter(d, 'teaOut'),
+        },
+        {
+            name: 'Tea In',
+            selector: 'teaIn',
+            sortable: true,
+            cell: (d) => timeFormatter(d, 'teaIn'),
         },
         {
             name: 'Out',
