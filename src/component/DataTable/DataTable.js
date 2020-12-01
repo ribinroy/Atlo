@@ -19,6 +19,10 @@ export default function DT() {
     const [showPopUp, setPopUp] = useState(false);
 
     const handleRowClicked = useCallback((row) => {
+        if (!row.locationLong || !row.locationLat) {
+            alert('Error in location for this user');
+            return false;
+        }
         setLocationData({
             lat: parseFloat(row.locationLat),
             long: parseFloat(row.locationLong),
@@ -106,9 +110,13 @@ const DataTableComponent = React.memo(function DataTableComponent({
         {
             name: 'Online',
             selector: 'weekOff',
-            sortable: true,
+            sortable: false,
             cell: (d) => {
-                return d.weekOff === 'true' ? 'Week Off' : 'Shown';
+                return d.weekOff === 'true'
+                    ? 'Week Off'
+                    : d.clockedIn !== undefined
+                    ? 'Present'
+                    : 'Not Present';
             },
         },
         {
@@ -155,7 +163,7 @@ const DataTableComponent = React.memo(function DataTableComponent({
         {
             name: 'Effective',
             selector: 'effective',
-            sortable: true,
+            sortable: false,
             cell: (d) => HMSFormatter(d, 'effective'),
         },
     ];

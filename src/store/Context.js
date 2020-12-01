@@ -86,14 +86,13 @@ export function Provider(props) {
             }
         }
 
-        const today = moment().format('YYYY-MM-DD');
+        const today = moment().format('YYYY-MM-D');
         setTodayUsersData(
             userArrayCalc.map((el) => {
                 const thisUserTodayAttendance = tempArray.filter((item) => {
                     return item.date === today && item.userToken === el.token;
                 });
                 el.todayAttendance = false;
-                debugger;
                 if (thisUserTodayAttendance.length > 0)
                     el.todayAttendance = thisUserTodayAttendance[0];
 
