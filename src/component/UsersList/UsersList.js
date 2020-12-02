@@ -35,6 +35,8 @@ export default function UsersList() {
         <div className='user-pointed'>{text}</div>
     );
 
+    debugger;
+
     return (
         <div className='container'>
             <div className='dt-wrap'>
@@ -43,6 +45,9 @@ export default function UsersList() {
                 <DataTableComponent
                     handleRowClicked={handleRowClicked}
                     data={contextData.userArrayCalc}
+                    showAdditionals={
+                        contextData.currentUser.email === 'ribinroy4@gmail.com'
+                    }
                 />
                 {/* <PopUp onClose={() => setPopUp(false)} visible={showPopUp}>
                 {locationData.center !== undefined && (
@@ -70,6 +75,7 @@ export default function UsersList() {
 const DataTableComponent = React.memo(function DataTableComponent({
     handleRowClicked,
     data,
+    showAdditionals,
 }) {
     const columns = [
         {
@@ -112,13 +118,21 @@ const DataTableComponent = React.memo(function DataTableComponent({
             selector: 'userType',
             sortable: true,
         },
-        // {
-        //     name: 'Device Logged in',
-        //     selector: 'deviceModel',
-        //     sortable: true,
-        // },
     ];
 
+    if (showAdditionals) {
+        columns.push({
+            name: 'Device Logged in',
+            selector: 'deviceModel',
+            sortable: true,
+        });
+        columns.push({
+            name: 'Date Added',
+            selector: 'timestamp',
+            sortable: true,
+            cell: (d) => dateOnlyFormatter(d, 'timestamp'),
+        });
+    }
     const tableData = {
         columns,
         data,
