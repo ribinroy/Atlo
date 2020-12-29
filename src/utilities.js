@@ -1,4 +1,6 @@
 import moment from 'moment';
+import clearDeviceAPI from './api/update-user-api';
+
 export const HMSFormatter = (d, key) => {
     d = Number(d[key]);
     var h = Math.floor(d / 3600);
@@ -73,6 +75,20 @@ export function getCookie(name) {
     }
     return null;
 }
+
+function clearDeviceForThisUser(d) {
+    if (window.confirm('Please confirm')) {
+        clearDeviceAPI(d.id);
+    }
+}
+
+export const clearDevice = (d) => (
+    <div
+        className='button clear-device'
+        onClick={() => clearDeviceForThisUser(d)}>
+        Clear
+    </div>
+);
 
 export function eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';

@@ -10,6 +10,7 @@ import PopUp from '../PopUp/PopUp';
 import {
     HMSFormatter,
     timeFormatter,
+    clearDevice,
     dateOnlyFormatter,
 } from '../../utilities';
 
@@ -131,6 +132,12 @@ const DataTableComponent = React.memo(function DataTableComponent({
             selector: 'timestamp',
             sortable: true,
             cell: (d) => dateOnlyFormatter(d, 'timestamp'),
+        });
+        columns.push({
+            name: 'Clear Device',
+            selector: 'id',
+            sortable: true,
+            cell: (d) => clearDevice(d),
         });
     }
     const tableData = {
