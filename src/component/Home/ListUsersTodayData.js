@@ -121,6 +121,22 @@ export default function ListAllUsers() {
         data: contextData.todayUsersData,
     };
 
+    const TodayCount = () => {
+        debugger;
+        function getCount(type) {
+            return contextData.todayUsersData.filter(
+                (el) => el.isShown === type
+            ).length;
+        }
+        console.log(contextData.todayUsersData);
+        return (
+            <span>
+                (Present - {getCount('Present')}| Not Shown -{' '}
+                {getCount('Not Shown')}| Week Off - {getCount('Week Off')}|
+                Leave - {getCount('Leave')})
+            </span>
+        );
+    };
     return (
         <div className='all-users-wrap'>
             <PopUp onClose={() => setPopUp(false)} visible={showPopUp}>
@@ -154,7 +170,7 @@ export default function ListAllUsers() {
                         </div>
                     );
                 })} */}
-            <h1>Today</h1>
+            <h1>Today {contextData.todayUsersData && <TodayCount />}</h1>
 
             <DataTableExtensions {...tableData}>
                 <DataTable

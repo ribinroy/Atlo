@@ -54,7 +54,7 @@ export default function DT() {
         <div className='dt-wrap'>
             <h1>Full Record</h1>
             <button onClick={() => clearAttendenceData()}>
-                Clear all attendence
+                Clear all attendence ({contextData.attendanceCalc.length})
             </button>
             <DataTableComponent
                 handleRowClicked={handleRowClicked}

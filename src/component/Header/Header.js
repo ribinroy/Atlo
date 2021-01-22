@@ -20,7 +20,11 @@ export default function Header() {
                 Dashboard
             </Link>
             <Link className='button nav-item' to='/users'>
-                Users
+                Users (
+                {contextData.userArrayCalc
+                    ? contextData.userArrayCalc.length
+                    : ''}
+                )
             </Link>
             <Link className='button nav-item home' to='/'>
                 Atlo
