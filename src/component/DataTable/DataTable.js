@@ -43,7 +43,7 @@ export default function DT() {
     function clearAttendenceData() {
         const proceedKey = Math.round(Math.random() * 10000000) + '';
         const enteredKey = prompt(
-            'There is no recover once you proceed.\nIf you wish to proceed please confirm the below number \n' +
+            'There is no recovery once you proceed.\nIf you wish to proceed please confirm the below number \n' +
                 proceedKey
         );
         if (enteredKey === proceedKey) {
