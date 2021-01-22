@@ -86,7 +86,7 @@ export function Provider(props) {
             }
         }
 
-        const today = moment().format('YYYY-MM-D');
+        const today = moment().format('YYYY-M-D');
         setTodayUsersData(
             userArrayCalc.map((el) => {
                 const thisUserTodayAttendance = tempArray.filter((item) => {

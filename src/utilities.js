@@ -30,6 +30,9 @@ export const dateOnlyFormatter = (d, key) =>
         </span>
     );
 
+export const sortFunction = (a, b, property) => {
+    return new Date(b[property]) - new Date(a[property]);
+};
 export const timeFormatter = (d, key) =>
     d[key] === undefined ? (
         'N/A'

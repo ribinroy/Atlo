@@ -11,6 +11,7 @@ import {
     HMSFormatter,
     timeFormatter,
     dateOnlyFormatter,
+    sortFunction,
 } from './../../utilities';
 
 export default function DT() {
@@ -90,6 +91,7 @@ const DataTableComponent = React.memo(function DataTableComponent({
             name: 'Date',
             selector: 'date',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'date'),
             cell: (d) => dateOnlyFormatter(d, 'date'),
         },
         {
@@ -128,36 +130,42 @@ const DataTableComponent = React.memo(function DataTableComponent({
             name: 'In',
             selector: 'clockedIn',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'clockedIn'),
             cell: (d) => timeFormatter(d, 'clockedIn'),
         },
         {
             name: 'Lunch out',
             selector: 'lunchOut',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'lunchOut'),
             cell: (d) => timeFormatter(d, 'lunchOut'),
         },
         {
             name: 'Lunch In',
             selector: 'lunchIn',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'lunchIn'),
             cell: (d) => timeFormatter(d, 'lunchIn'),
         },
         {
             name: 'Tea Out',
             selector: 'teaOut',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'teaOut'),
             cell: (d) => timeFormatter(d, 'teaOut'),
         },
         {
             name: 'Tea In',
             selector: 'teaIn',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'teaIn'),
             cell: (d) => timeFormatter(d, 'teaIn'),
         },
         {
             name: 'Out',
             selector: 'clockedOut',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'clockedOut'),
             cell: (d) => timeFormatter(d, 'clockedOut'),
         },
         {
@@ -181,7 +189,7 @@ const DataTableComponent = React.memo(function DataTableComponent({
                 noHeader
                 theme={'dark'}
                 defaultSortField='date'
-                defaultSortAsc={false}
+                defaultSortAsc={true}
                 pagination
                 highlightOnHover
                 onRowClicked={handleRowClicked}

@@ -9,7 +9,7 @@ import GoogleMapReact from 'google-map-react';
 import PopUp from '../PopUp/PopUp';
 import {
     HMSFormatter,
-    timeFormatter,
+    sortFunction,
     clearDevice,
     dateOnlyFormatter,
 } from '../../utilities';
@@ -131,6 +131,7 @@ const DataTableComponent = React.memo(function DataTableComponent({
             name: 'Date Added',
             selector: 'timestamp',
             sortable: true,
+            sortFunction: (a, b) => sortFunction(a, b, 'timestamp'),
             cell: (d) => dateOnlyFormatter(d, 'timestamp'),
         });
         columns.push({
